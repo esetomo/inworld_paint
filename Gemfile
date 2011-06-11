@@ -46,3 +46,5 @@ end
 group :test, :development do
   gem "rspec-rails"
 end
+
+gem 'test-unit', '1.2.3'
