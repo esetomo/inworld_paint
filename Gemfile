@@ -1,44 +1,23 @@
 # -*- mode:ruby; coding:utf-8 -*-
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0.rc1'
+gem 'rails', '3.1.0.rc4'
 
-gem 'rails3-generators'
+gem 'sqlite3'
+
+# Asset template engines
+gem 'json'
+gem 'sass-rails', "~> 3.1.0.rc"
+gem 'coffee-script'
+gem 'uglifier'
+
 gem 'jquery-rails'
-gem 'i18n_generators'
-gem 'will_paginate', '>= 3.0.pre'
-gem 'bson_ext'
-gem 'mongoid'
 
-gem 'haml'
-gem 'haml-rails'
+gem 'unicorn'
 
-gem 'sass'
-gem 'sass-rails'
+# Deploy with Capistrano
+# gem 'capistrano'
 
-gem 'SystemTimer'
+# To use debugger
+# gem 'ruby-debug'
 
-group :development do
-  gem "rails-erd"
-end
-
-group :test do
-  gem "rspec"
-  gem "rspec-integration"
-  gem "factory_girl_rails"
-  gem "remarkable_mongoid"
-
-  gem "ZenTest"
-  gem "redgreen"
-  gem "diff-lcs"
- 
-  gem 'cucumber'
-  gem 'cucumber-rails'
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'rcov'
-end
-
-group :test, :development do
-  gem "rspec-rails"
-end
