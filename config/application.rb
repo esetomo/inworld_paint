@@ -38,5 +38,13 @@ module Paint
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.generators do |g|
+      g.orm :mongoid
+      g.template_engine :haml
+      g.test_framework :rspec, :fixture => true
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.integration_tool nil
+    end
   end
 end

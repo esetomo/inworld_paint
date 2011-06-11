@@ -1,31 +1,44 @@
+# -*- mode:ruby; coding:utf-8 -*-
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.8'
+gem 'rails', '~> 3.1.0.rc1'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails3-generators'
+gem 'jquery-rails'
+gem 'i18n_generators'
+gem 'will_paginate', '>= 3.0.pre'
+gem 'bson_ext'
+gem 'mongoid'
 
-gem 'sqlite3'
+gem 'haml'
+gem 'haml-rails'
 
-# Use unicorn as the web server
-# gem 'unicorn'
+gem 'sass'
+gem 'sass-rails'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+gem 'SystemTimer'
 
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
+group :development do
+  gem "rails-erd"
+end
 
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+group :test do
+  gem "rspec"
+  gem "rspec-integration"
+  gem "factory_girl_rails"
+  gem "remarkable_mongoid"
 
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+  gem "ZenTest"
+  gem "redgreen"
+  gem "diff-lcs"
+ 
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rcov'
+end
+
+group :test, :development do
+  gem "rspec-rails"
+end
