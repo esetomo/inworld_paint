@@ -30,7 +30,7 @@ describe TexturesController do
   describe "GET index" do
     it "assigns all textures as @textures" do
       texture = Texture.create! valid_attributes
-      get :index
+      get :index, :canvas_id => "2"
       assigns(:textures).should eq([texture])
     end
   end
@@ -38,14 +38,14 @@ describe TexturesController do
   describe "GET show" do
     it "assigns the requested texture as @texture" do
       texture = Texture.create! valid_attributes
-      get :show, :id => texture.id.to_s
+      get :show, :id => texture.id.to_s, :canvas_id => "2"
       assigns(:texture).should eq(texture)
     end
   end
 
   describe "GET new" do
     it "assigns a new texture as @texture" do
-      get :new
+      get :new, :canvas_id => "2"
       assigns(:texture).should be_a_new(Texture)
     end
   end
@@ -53,7 +53,7 @@ describe TexturesController do
   describe "GET edit" do
     it "assigns the requested texture as @texture" do
       texture = Texture.create! valid_attributes
-      get :edit, :id => texture.id.to_s
+      get :edit, :id => texture.id.to_s, :canvas_id => "2"
       assigns(:texture).should eq(texture)
     end
   end
@@ -62,19 +62,19 @@ describe TexturesController do
     describe "with valid params" do
       it "creates a new Texture" do
         expect {
-          post :create, :texture => valid_attributes
+          post :create, :texture => valid_attributes, :canvas_id => "2"
         }.to change(Texture, :count).by(1)
       end
 
       it "assigns a newly created texture as @texture" do
-        post :create, :texture => valid_attributes
+        post :create, :texture => valid_attributes, :canvas_id => "2"
         assigns(:texture).should be_a(Texture)
         assigns(:texture).should be_persisted
       end
 
       it "redirects to the created texture" do
-        post :create, :texture => valid_attributes
-        response.should redirect_to(Texture.last)
+        post :create, :texture => valid_attributes, :canvas_id => "2"
+        response.should redirect_to(canvas_texture_path(2, Texture.last))
       end
     end
 
@@ -82,14 +82,14 @@ describe TexturesController do
       it "assigns a newly created but unsaved texture as @texture" do
         # Trigger the behavior that occurs when invalid params are submitted
         Texture.any_instance.stub(:save).and_return(false)
-        post :create, :texture => {}
+        post :create, :texture => {}, :canvas_id => "2"
         assigns(:texture).should be_a_new(Texture)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Texture.any_instance.stub(:save).and_return(false)
-        post :create, :texture => {}
+        post :create, :texture => {}, :canvas_id => "2"
         response.should render_template("new")
       end
     end
@@ -104,19 +104,19 @@ describe TexturesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Texture.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => texture.id, :texture => {'these' => 'params'}
+        put :update, :id => texture.id, :texture => {'these' => 'params'}, :canvas_id => "2"
       end
 
       it "assigns the requested texture as @texture" do
         texture = Texture.create! valid_attributes
-        put :update, :id => texture.id, :texture => valid_attributes
+        put :update, :id => texture.id, :texture => valid_attributes, :canvas_id => "2"
         assigns(:texture).should eq(texture)
       end
 
       it "redirects to the texture" do
         texture = Texture.create! valid_attributes
-        put :update, :id => texture.id, :texture => valid_attributes
-        response.should redirect_to(texture)
+        put :update, :id => texture.id, :texture => valid_attributes, :canvas_id => "2"
+        response.should redirect_to(canvas_texture_path(2, texture))
       end
     end
 
@@ -125,7 +125,7 @@ describe TexturesController do
         texture = Texture.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Texture.any_instance.stub(:save).and_return(false)
-        put :update, :id => texture.id.to_s, :texture => {}
+        put :update, :id => texture.id.to_s, :texture => {}, :canvas_id => "2"
         assigns(:texture).should eq(texture)
       end
 
@@ -133,7 +133,7 @@ describe TexturesController do
         texture = Texture.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Texture.any_instance.stub(:save).and_return(false)
-        put :update, :id => texture.id.to_s, :texture => {}
+        put :update, :id => texture.id.to_s, :texture => {}, :canvas_id => "2"
         response.should render_template("edit")
       end
     end
@@ -143,14 +143,14 @@ describe TexturesController do
     it "destroys the requested texture" do
       texture = Texture.create! valid_attributes
       expect {
-        delete :destroy, :id => texture.id.to_s
+        delete :destroy, :id => texture.id.to_s, :canvas_id => "2"
       }.to change(Texture, :count).by(-1)
     end
 
     it "redirects to the textures list" do
       texture = Texture.create! valid_attributes
-      delete :destroy, :id => texture.id.to_s
-      response.should redirect_to(textures_url)
+      delete :destroy, :id => texture.id.to_s, :canvas_id => "2"
+      response.should redirect_to(canvas_textures_url(2))
     end
   end
 

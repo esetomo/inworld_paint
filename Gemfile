@@ -29,6 +29,7 @@ end
 group :test do
   gem "rspec"
   gem "rspec-integration"
+  gem "mongoid-rspec"
   gem "factory_girl_rails"
   gem "remarkable_mongoid"
 

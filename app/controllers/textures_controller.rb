@@ -44,7 +44,7 @@ class TexturesController < ApplicationController
 
     respond_to do |format|
       if @texture.save
-        format.html { redirect_to @texture, notice: 'Texture was successfully created.' }
+        format.html { redirect_to canvas_texture_path(params[:canvas_id], @texture), notice: 'Texture was successfully created.' }
         format.json { render json: @texture, status: :created, location: @texture }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class TexturesController < ApplicationController
 
     respond_to do |format|
       if @texture.update_attributes(params[:texture])
-        format.html { redirect_to @texture, notice: 'Texture was successfully updated.' }
+        format.html { redirect_to canvas_texture_path(params[:canvas_id], @texture), notice: 'Texture was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class TexturesController < ApplicationController
     @texture.destroy
 
     respond_to do |format|
-      format.html { redirect_to textures_url }
+      format.html { redirect_to canvas_textures_url(params[:canvas_id]) }
       format.json { head :ok }
     end
   end

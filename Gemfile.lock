@@ -101,6 +101,9 @@ GEM
       activemodel (~> 3.0)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
+    mongoid-rspec (1.4.4)
+      mongoid (~> 2.0)
+      rspec (~> 2)
     multi_json (1.0.3)
     nokogiri (1.4.4)
     polyglot (0.3.1)
@@ -213,6 +216,7 @@ DEPENDENCIES
   jquery-rails
   json
   mongoid
+  mongoid-rspec
   rails (= 3.1.0.rc4)
   rails-erd
   rails3-generators
