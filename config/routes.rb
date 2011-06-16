@@ -1,4 +1,9 @@
 Paint::Application.routes.draw do
+
+  resources :canvases do
+    resources :textures
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

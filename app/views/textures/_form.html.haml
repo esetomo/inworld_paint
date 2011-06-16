@@ -1,0 +1,10 @@
+= form_for @texture do |f|
+  -if @texture.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@texture.errors.count, "error")} prohibited this texture from being saved:"
+      %ul
+        - @texture.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

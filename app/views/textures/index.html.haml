@@ -1,0 +1,17 @@
+%h1 Listing textures
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @textures.each do |texture|
+    %tr
+      %td= link_to 'Show', texture
+      %td= link_to 'Edit', edit_texture_path(texture)
+      %td= link_to 'Destroy', texture, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Texture', new_texture_path
