@@ -8,9 +8,10 @@ gem 'jquery-rails'
 gem 'i18n_generators'
 # gem 'will_paginate', '~> 3.0.beta'
 
-gem 'sqlite3'
-gem 'bson_ext'
-gem 'mongoid'
+# gem 'sqlite3'
+# gem 'bson_ext'
+# gem 'mongoid'
+gem 'datamapper'
 
 # Asset template engines
 gem 'json'
