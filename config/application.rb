@@ -43,7 +43,7 @@ module Paint
     config.assets.enabled = true
 
     config.generators do |g|
-      g.orm :dm
+      g.orm :mongoid
       g.template_engine :haml
       g.test_framework :rspec, :fixture => true, :webrat => true
       g.fixture_replacement :factory_girl, :dir => "spec/factories"

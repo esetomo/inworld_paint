@@ -9,9 +9,8 @@ gem 'i18n_generators'
 # gem 'will_paginate', '~> 3.0.beta'
 
 # gem 'sqlite3'
-# gem 'bson_ext'
-# gem 'mongoid'
-gem 'datamapper'
+gem 'bson_ext'
+gem 'mongoid'
 
 # Asset template engines
 gem 'json'
