@@ -1,4 +1,4 @@
-= form_for @texture do |f|
+= form_for([@canvas, @texture]) do |f|
   -if @texture.errors.any?
     #error_explanation
       %h2= "#{pluralize(@texture.errors.count, "error")} prohibited this texture from being saved:"

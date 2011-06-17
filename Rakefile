@@ -4,4 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+require 'ci/reporter/rake/rspec'
+require 'ci/reporter/rake/cucumber'
+
 Paint::Application.load_tasks

@@ -42,6 +42,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'rcov'
+  gem 'ci_reporter'
 end
 
 group :test, :development do
