@@ -1,0 +1,10 @@
+!!!5
+html
+  head
+    title Canvas
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js')
+    script(src='http://cdn.socket.io/stable/socket.io.js')
+    script(src='canvas.js')
+  body
+    section#content
+    input#message(type='text')

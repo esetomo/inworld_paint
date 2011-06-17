@@ -22,6 +22,7 @@ socket.on('connection', function(client){
     client.send("Hello")
     client.on('message', function(message){
         console.log("message " + message)
+        client.send(message)
     })
     client.on('disconnect', function(){
         console.log("disconnect")
