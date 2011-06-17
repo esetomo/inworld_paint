@@ -1,12 +1,16 @@
-var express = require ('express');
+var express = require('express')
 
-var app = express.createServer(express.logger());
+var app = express.createServer(express.logger())
+
+app.set('views', __dirname + '/views')
+app.set('view options', {layout:false})
+app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response){
-    response.send('Hello World');
+    response.render('index.jade');
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000
 app.listen(port, function(){
-    console.log("Listening on " + port);
+    console.log("Listening on " + port)
 });
