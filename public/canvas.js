@@ -2,23 +2,30 @@ $(document).ready(function(){
     var socket = new io.Socket();
     socket.connect();
     socket.on('message', function(message){
-        // console.log(message);
-        $('#canvas').drawArc({
-            fillStyle: "black",
-            x: message.x,
-            y: message.y,
-            radius: 3,
-        });
+        console.log(message);
+        $('#canvas').drawLine(message);
     });
+    var a;
+    var i;
     $('#canvas').mousecapture({
         down:function(e){
-            socket.send({t:'d', x:e.clientX, y:e.clientY});
+            a = {
+                strokeStyle:"#000",
+                strokeWidth:3,
+                strokeCap:"round",
+                strokeJoin:"round",
+                x1:e.clientX,
+                y1:e.clientY,
+            };
+            i = 2;
         },
         move:function(e){
-            socket.send({t:'m', x:e.clientX, y:e.clientY});
+            a['x' + i] = e.clientX;
+            a['y' + i] = e.clientY;
+            i++;
         },
         up:function(e){
-            socket.send({t:'u', x:e.clientX, y:e.clientY});
+            socket.send(a);
         }
     });
 });
