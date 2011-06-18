@@ -2,7 +2,13 @@ $(document).ready(function(){
     var socket = new io.Socket();
     socket.connect();
     socket.on('message', function(message){
-        console.log(message);
+        // console.log(message);
+        $('#canvas').drawArc({
+            fillStyle: "black",
+            x: message.x,
+            y: message.y,
+            radius: 3,
+        });
     });
     $('#canvas').mousecapture({
         down:function(e){
@@ -13,6 +19,6 @@ $(document).ready(function(){
         },
         up:function(e){
             socket.send({t:'u', x:e.clientX, y:e.clientY});
-        },
+        }
     });
 });

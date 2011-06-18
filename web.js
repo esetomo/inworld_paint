@@ -20,7 +20,7 @@ var socket = io.listen(app)
 socket.on('connection', function(client){
     console.log("connect")
     client.on('message', function(message){
-        console.log("t:" + message.t + " (" + message.x + "," + message.y + ")")
+        // console.log("t:" + message.t + " (" + message.x + "," + message.y + ")")
         socket.broadcast(message)
     })
     client.on('disconnect', function(){
