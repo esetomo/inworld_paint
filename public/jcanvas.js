@@ -381,6 +381,9 @@ $.fn.drawLine = function(args) {
 		while (lx >= 0 && ly >= 0) {
 			lx = params['x' + l];
 			ly = params['y' + l];
+            if(!(lx >= 0 && ly >= 0)){
+                break;
+            }
 			ctx.lineTo(lx, ly);
 			l += 1;
 		}
