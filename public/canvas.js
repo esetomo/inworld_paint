@@ -2,10 +2,17 @@ $(document).ready(function(){
     var socket = new io.Socket();
     socket.connect();
     socket.on('message', function(message){
-        $('#content').append(message);
+        console.log(message);
     });
-    $('#message').change(function(){
-        socket.send(this.value);
-        this.value = '';
+    $('#canvas').mousecapture({
+        down:function(e){
+            socket.send({t:'d', x:e.clientX, y:e.clientY});
+        },
+        move:function(e){
+            socket.send({t:'m', x:e.clientX, y:e.clientY});
+        },
+        up:function(e){
+            socket.send({t:'u', x:e.clientX, y:e.clientY});
+        },
     });
 });
