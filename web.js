@@ -1,11 +1,11 @@
-var express = require('express')
-var io = require('socket.io')
+var express = require('express');
+var io = require('socket.io');
 
-var app = express.createServer(express.logger())
+var app = express.createServer(express.logger());
 
-app.set('views', __dirname + '/views')
-app.set('view options', {layout:false})
-app.use(express.static(__dirname + '/public'))
+app.set('views', __dirname + '/views');
+app.set('view options', {layout:false});
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
     response.render('index.jade');
@@ -13,17 +13,22 @@ app.get('/', function(request, response){
 
 var port = process.env.PORT || 3000
 app.listen(port, function(){
-    console.log("Listening on " + port)
+    console.log("Listening on " + port);
 });
 
-var socket = io.listen(app)
+var data;
+
+var socket = io.listen(app);
 socket.on('connection', function(client){
-    console.log("connect")
+    console.log("connect");
+    socket.broadcast(data);
+
     client.on('message', function(message){
-        // console.log("t:" + message.t + " (" + message.x + "," + message.y + ")")
-        socket.broadcast(message)
-    })
+        data = message;
+        socket.broadcast(message);
+    });
+
     client.on('disconnect', function(){
-        console.log("disconnect")
-    })
-})
+        console.log("disconnect");
+    });
+});
