@@ -1,9 +1,10 @@
 $(document).ready(function(){
+    var ctx = $('#canvas')[0].getContext('2d');
     var socket = new io.Socket();
     socket.connect();
     socket.on('message', function(message){
         console.log(message);
-        $('#canvas').drawLine(message);
+        // $('#canvas').drawLine(message);
     });
     var a;
     var i;
@@ -18,14 +19,18 @@ $(document).ready(function(){
                 y1:e.clientY,
             };
             i = 2;
+            ctx.beginPath();
+            ctx.moveTo(e.clientX, e.clientY);
         },
         move:function(e){
             a['x' + i] = e.clientX;
             a['y' + i] = e.clientY;
             i++;
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
         },
         up:function(e){
-            socket.send(a);
+            //socket.send(a);
         }
     });
 });
