@@ -24,6 +24,11 @@ app.get('/', function(request, response){
     response.render('index.jade');
 });
 
+app.get('/clear', function(request, response){
+    Path.remove({}, function(){});
+    response.send('clear');
+});
+
 var port = process.env.PORT || 3000
 app.listen(port, function(){
     console.log("Listening on " + port);
