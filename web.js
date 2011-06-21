@@ -26,6 +26,7 @@ app.get('/', function(request, response){
 
 app.get('/clear', function(request, response){
     Path.remove({}, function(){});
+    channels['test'].send(null, {command:'clear'});
     response.send('clear');
 });
 

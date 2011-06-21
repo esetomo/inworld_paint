@@ -7,16 +7,23 @@ $(document).ready(function(){
 
     socket.on('message', function(data){
         console.log(data);
-        ctx.beginPath();
-        var points = data.points;
-        var p = points.shift();
-        ctx.moveTo(p.x, p.y);
 
-        for(var i = 0; i < points.length; i++){
-            p = points[i];
-            ctx.lineTo(p.x, p.y);
+        var points = data.points;
+        if(points){
+            ctx.beginPath();
+            var p = points.shift();
+            ctx.moveTo(p.x, p.y);
+            
+            for(var i = 0; i < points.length; i++){
+                p = points[i];
+                ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke();
         }
-        ctx.stroke();
+
+        if(data.command == 'clear'){
+            ctx.clearRect(0, 0, 512, 512);
+        }
     });
    
     var a;
