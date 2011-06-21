@@ -6,12 +6,17 @@ $(document).ready(function(){
     socket.connect();
 
     socket.on('message', function(data){
-        var img = new Image();
-        img.onload = function(){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0);
+        console.log(data);
+        ctx.beginPath();
+        var points = data.points;
+        var p = points.shift();
+        ctx.moveTo(p.x, p.y);
+
+        for(var i = 0; i < points.length; i++){
+            p = points[i];
+            ctx.lineTo(p.x, p.y);
         }
-        img.src = data;
+        ctx.stroke();
     });
    
     var a;
