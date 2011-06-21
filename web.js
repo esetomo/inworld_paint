@@ -9,7 +9,11 @@ var Path = mongoose.model('Path', new Schema({
     updated_at: { type: Date, default: Date.now }
 }));
 
-var db = mongoose.connect('mongodb://localhost/paint');
+var mongo_url = 'mongodb://localhost/paint';
+if(process.env.MONGOHQ_URL){
+    mongo_url = process.env.MONGOHQ_URL;
+}
+var db = mongoose.connect(mongo_url);
 var app = express.createServer(express.logger());
 
 app.set('views', __dirname + '/views');
