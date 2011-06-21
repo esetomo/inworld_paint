@@ -14,17 +14,22 @@ $(document).ready(function(){
         img.src = data;
     });
    
+    var a;
+
     $('#canvas').mousecapture({
         down:function(e){
             ctx.beginPath();
             ctx.moveTo(e.clientX, e.clientY);
+            a = [];
+            a.push({x:e.clientX, y:e.clientY});
         },
         move:function(e){
             ctx.lineTo(e.clientX, e.clientY);
             ctx.stroke();
+            a.push({x:e.clientX, y:e.clientY});
         },
         up:function(e){
-            socket.send(canvas.toDataURL());
+            socket.send({points:a});
         }
     });
 });

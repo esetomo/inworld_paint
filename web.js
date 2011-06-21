@@ -1,6 +1,15 @@
 var express = require('express');
 var io = require('socket.io');
+var mongoose = require('mongoose');
 
+var Schema = mongoose.Schema;
+
+var Path = mongoose.model('Path', new Schema({
+    data: {},
+    updated_at: { type: Date, default: Date.now }
+}));
+
+var db = mongoose.connect('mongodb://localhost/paint');
 var app = express.createServer(express.logger());
 
 app.set('views', __dirname + '/views');
@@ -16,16 +25,16 @@ app.listen(port, function(){
     console.log("Listening on " + port);
 });
 
-var data;
-
 var socket = io.listen(app);
 socket.on('connection', function(client){
     console.log("connect");
-    socket.broadcast(data);
 
     client.on('message', function(message){
-        data = message;
+        var path = new Path();
+        path.data = message;
+        path.save();
         socket.broadcast(message);
+        console.log(path);
     });
 
     client.on('disconnect', function(){
