@@ -44,9 +44,9 @@ Channel.prototype.leave = function(client){
 Channel.prototype.send = function(from, data){
     for(var i=0; i<this.clients.length; i++){
         var client = this.clients[i];
-        //if(client != from){
+        if(client != from){
             client.send(data);
-        //}
+        }
     }
 }
 
@@ -56,6 +56,13 @@ var socket = io.listen(app);
 socket.on('connection', function(client){
     console.log("connect");
     channels['test'].join(client);
+
+    Path.find({}, function(err, paths){
+        paths.forEach(function(path){
+            //console.log(path);
+            client.send(path.data);
+        });
+    });
 
     client.on('message', function(message){
         var path = new Path();
