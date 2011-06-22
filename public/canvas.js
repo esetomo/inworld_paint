@@ -3,6 +3,8 @@ $(document).ready(function(){
     var ctx = canvas.getContext('2d');
     var socket = io.connect();
 
+    socket.emit('join', room);
+
     socket.on('path', function(points){
         console.log(points);
         ctx.beginPath();
