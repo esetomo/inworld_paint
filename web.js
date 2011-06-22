@@ -43,8 +43,6 @@ app.listen(port, function(){
 
 var io = sio.listen(app);
 
-io.set('transports', ['websocket']);
-
 io.sockets.on('connection', function(socket){
     console.log("connect");
 
