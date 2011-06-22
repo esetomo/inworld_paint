@@ -1,5 +1,5 @@
 var express = require('express');
-var io = require('socket.io');
+var sio = require('socket.io');
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
@@ -21,7 +21,7 @@ app.set('view options', {layout:false});
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
-    res.render('index.jade', {channels: channels});
+    res.render('index.jade', {rooms: io.store.rooms});
 });
 
 app.get(/\/c\/(.+)/, function(req, res){
@@ -30,7 +30,7 @@ app.get(/\/c\/(.+)/, function(req, res){
 
 app.get('/clear', function(req, res){
     Path.remove({}, function(){});
-    channels['test'].send(null, {command:'clear'});
+    io.sockets.in('test').emit('clear');
     res.send('clear');
 });
 
@@ -39,54 +39,27 @@ app.listen(port, function(){
     console.log("Listening on " + port);
 });
 
-function Channel(name){
-    this.name = name;
-    this.clients = [];
-};
-
-Channel.prototype.join = function (client){
-    this.clients.push(client);
-};
-
-Channel.prototype.leave = function(client){
-    var i = this.clients.indexOf(client);
-    if(i >= 0){
-        this.clients.splice(i, 1);
-    }
-}
-
-Channel.prototype.send = function(from, data){
-    for(var i=0; i<this.clients.length; i++){
-        var client = this.clients[i];
-        if(client != from){
-            client.send(data);
-        }
-    }
-}
-
-var channels = {test:new Channel('test')};
-
-var socket = io.listen(app);
-socket.on('connection', function(client){
+var io = sio.listen(app);
+io.sockets.on('connection', function(socket){
     console.log("connect");
-    channels['test'].join(client);
+
+    socket.join('test');
 
     Path.find({}, function(err, paths){
         paths.forEach(function(path){
             //console.log(path);
-            client.send(path.data);
+            socket.emit('path', path.data);
         });
     });
 
-    client.on('message', function(message){
+    socket.on('path', function(points){
         var path = new Path();
-        path.data = message;
+        path.data = points;
         path.save();
-        channels['test'].send(client, message);
+        socket.broadcast.to('test').emit('path', points);
     });
 
-    client.on('disconnect', function(){
+    socket.on('disconnect', function(){
         console.log("disconnect");
-        channels['test'].leave(client);
     });
 });

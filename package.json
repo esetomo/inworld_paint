@@ -5,7 +5,6 @@
     "express": "2.2.0",
     "jade": "",
     "mongoose": "",
-    "socket.io": "",
-    "observer": ""
+    "socket.io": "0.7",
   }
 }

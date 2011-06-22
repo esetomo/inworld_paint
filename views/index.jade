@@ -3,7 +3,7 @@ html
   head
     title Index
   body
-    ul#channels
-      - each channel, name in channels
+    ul#rooms
+      - each room, name in rooms
         li
           a(href='/c/#{name}') #{name}

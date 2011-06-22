@@ -1,29 +1,21 @@
 $(document).ready(function(){
     var canvas = $('#canvas')[0];
     var ctx = canvas.getContext('2d');
-    var socket = new io.Socket();
+    var socket = io.connect();
 
-    socket.connect();
-
-    socket.on('message', function(data){
-        console.log(data);
-
-        var points = data.points;
-        if(points){
-            ctx.beginPath();
-            var p = points.shift();
-            ctx.moveTo(p.x, p.y);
-            
-            for(var i = 0; i < points.length; i++){
-                p = points[i];
-                ctx.lineTo(p.x, p.y);
-            }
-            ctx.stroke();
+    socket.on('path', function(points){
+        console.log(points);
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        
+        for(var i = 1; points[i]; i++){
+            ctx.lineTo(points[i].x, points[i].y);
         }
+        ctx.stroke();
+    });
 
-        if(data.command == 'clear'){
-            ctx.clearRect(0, 0, 512, 512);
-        }
+    socket.on('clear', function(){
+        ctx.clearRect(0, 0, 512, 512);
     });
    
     var a;
@@ -41,7 +33,7 @@ $(document).ready(function(){
             a.push({x:e.clientX, y:e.clientY});
         },
         up:function(e){
-            socket.send({points:a});
+            socket.emit('path', a);
         }
     });
 });
