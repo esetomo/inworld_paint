@@ -20,14 +20,18 @@ app.set('views', __dirname + '/views');
 app.set('view options', {layout:false});
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response){
-    response.render('index.jade');
+app.get('/', function(req, res){
+    res.render('index.jade', {channels: channels});
 });
 
-app.get('/clear', function(request, response){
+app.get(/\/c\/(.+)/, function(req, res){
+    res.render('canvas.jade', {channel: req.params[0]});
+});
+
+app.get('/clear', function(req, res){
     Path.remove({}, function(){});
     channels['test'].send(null, {command:'clear'});
-    response.send('clear');
+    res.send('clear');
 });
 
 var port = process.env.PORT || 3000

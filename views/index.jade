@@ -1,11 +1,9 @@
 !!!5
 html
   head
-    link(rel='stylesheet', href='style.css')
-    title Canvas
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js')
-    script(src='http://cdn.socket.io/stable/socket.io.js')
-    script(src='jquery.mousecapture.js')
-    script(src='canvas.js')
+    title Index
   body
-    canvas#canvas(width='512', height='512')
+    ul#channels
+      - each channel, name in channels
+        li
+          a(href='/c/#{name}') #{name}
